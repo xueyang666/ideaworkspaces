@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springboot.homework.springbootdemo01.mapper.IUserMapper">
+    <resultMap id="iUserMapper" type="com.springboot.homework.springbootdemo01.entity.User">
+        <id column="user_id" property="userId" javaType="Integer"/>
+        <result column="user_name" property="userName" javaType="String"/>
+        <result column="age" property="age" javaType="Integer"/>
+        <result column="create_time" property="createTime" javaType="Date"/>
+    </resultMap>
+
+    <!--    使用用户id查询用户-->
+    <select id="selectUserById" resultMap="iUserMapper">
+SELECT
+	user_id,
+	user_name,
+	age,
+	create_time
+FROM
+	user_info
+WHERE
+	user_id = #{userId}
+    </select>
+
+    <!--    查询所有用户-->
+    <select id="selectAll" resultMap="iUserMapper">
+SELECT
+	user_id,
+	user_name,
+	age,
+	create_time
+FROM
+	user_info
+
+    </select>
+    <!--    插入用户-->
+    <insert id="getUser" keyProperty="userId" useGeneratedKeys="true">
+INSERT INTO
+    user_info(
+    user_id,
+	user_name,
+	age,
+	create_time
+    )
+    VALUES(
+    #{userId},
+    #{userName},
+    #{age},
+    #{createTime}
+    )
+    </insert>
+    <!--    更改用户-->
+    <update id="updateUser">
+        UPDATE user_info
+        SET
+            user_name = #{userName},
+            age = #{age},
+            create_time = #{createTime}
+            WHERE user_id = #{userId}
+
+    </update>
+
+    <!--    删除用户-->
+    <delete id="deleteUserById">
+        DELETE
+FROM
+	user_info
+WHERE
+	user_id = #{userId}
+    </delete>
+
+
+</mapper>
